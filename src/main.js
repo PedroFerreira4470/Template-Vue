@@ -4,8 +4,9 @@ import vuetify from './plugins/vuetify';
 import store from './plugins/vueStore';
 import router from './plugins/vueRoute';
 import apiInterceptorsSetup from './api/interceptors';
-import './filters/global/capitalize';
 import './filters/global/currency';
+import './filters/global/capitalize';
+import './filters/global/date';
 
 Vue.config.productionTip = false;
 

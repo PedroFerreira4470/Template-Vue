@@ -15,9 +15,10 @@ export default function setup(store) {
     //Response
     http.interceptors.response.use(
         response => response,
-        error => {
-            // eslint-disable-next-line no-console
-            console.log(error);
+        () => {
+            //const { response } = error;
+            //const { request, ...errorObject } = response; // take everything but 'request'
+
             store.dispatch(
                 "messageModule/showErrorMessage",
                 "Ops! Houve um problema ao processar a sua resposta."

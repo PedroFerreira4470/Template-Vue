@@ -1,11 +1,5 @@
 <template>
-    <v-data-table
-        v-if="loading"
-        item-key="name"
-        class="elevation-1"
-        loading
-        loading-text="Loading... Please wait"
-    />
+    <table-loading v-if="loading" />
     <div
         v-else
         class="pa-2"
@@ -14,7 +8,7 @@
             :headers="headers"
             :items="bookings"
             hide-default-footer
-            class="elevation-1 mt-10"
+            class="elevation-1"
         >
             <template v-slot:top>
                 <v-toolbar
@@ -28,38 +22,38 @@
                         vertical
                     />
                     <v-spacer />
-                    <v-dialog
-                        v-model="dialog"
-                        max-width="500px"
+
+                    <v-btn
+                        color="secondary"
+                        dark
+                        @click.prevent="onNewBooking"
                     >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                                color="primary"
-                                dark
-                                class="mb-2"
-                                v-bind="attrs"
-                                v-on="on"
-                            >
-                                New Booking
-                            </v-btn>
-                        </template>
-                    </v-dialog>
+                        New Booking
+                    </v-btn>
                 </v-toolbar>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <v-icon
                     small
                     class="mr-2"
-                    @click="editItem(item)"
+                    @click.prevent="editItem(item)"
                 >
                     mdi-pencil
                 </v-icon>
                 <v-icon
                     small
-                    @click="deleteItem(item)"
+                    @click.prevent="deleteItem(item)"
                 >
                     mdi-delete
                 </v-icon>
+            </template>
+            <template v-slot:no-data>
+                <v-btn
+                    color="primary"
+                    @click.prevent="initialize"
+                >
+                    Refresh
+                </v-btn>
             </template>
         </v-data-table>
         <p class="text-center pt-1">Total Bookings: {{ pagination.totalRecords }}</p>
@@ -90,8 +84,12 @@
 
 <script>
 import bookingService from "../../services/bookingDataService";
+import tableLoading from '../base/table/tableLoading.vue'
 
 export default {
+    components:{
+        tableLoading
+    },
     data() {
         return {
             loading: false,
@@ -111,7 +109,7 @@ export default {
                     value: "Id"
                 },
                 {
-                    text: "Client Id",
+                    text: "Client",
                     align: "start",
                     sortable: false,
                     value: "ClientName"
@@ -151,6 +149,13 @@ export default {
         },
         increaseItemsPerPage(newPageSize){
             this.getAllBookingsFromApi(newPageSize, this.pagination.page);
+        },
+        onNewBooking(){
+            this.$router.push(`booking/create`)
+        },
+        initialize(){
+            this.loading = true;
+            this.getAllBookingsFromApi(this.pagination.itemsPerPage, this.pagination.page);
         }
     }
 };

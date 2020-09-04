@@ -14,6 +14,7 @@
     }],
 
     "vue/singleline-html-element-content-newline": 0,
+    "vue/max-attributes-per-line": 5,
     "vue/eqeqeq": 2,
     "no-plusplus": 0
   },

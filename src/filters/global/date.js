@@ -1,6 +1,10 @@
 import Vue from 'vue';
 
 Vue.filter('date', (val) => {
+    // eslint-disable-next-line no-console
+    if (val === null || val === ""){
+        return "No Date"
+    }
     const d = new Date(val);
     let month = '' + (d.getMonth() + 1);
     let day = '' + d.getDate();

@@ -7,6 +7,7 @@ import apiInterceptorsSetup from './api/interceptors';
 import './filters/global/currency';
 import './filters/global/capitalize';
 import './filters/global/date';
+import './filters/global/valueIsEmpty';
 
 Vue.config.productionTip = false;
 

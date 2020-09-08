@@ -1,5 +1,5 @@
 import Home from "../components/home/AppHome.vue";
-import EditPage from '../components/booking/form/formPage.vue'
+import EditPage from '../components/booking/form/FormPage.vue'
 
 const routes = [
     {

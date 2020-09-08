@@ -1,12 +1,14 @@
 <template>
-    <v-app>
-        <app-header />
+    <v-app id="inspire">
+        <v-app id="inspire">
+            <app-header :drawer="drawer" @update:drawer="updateDrawer" />
 
-        <v-main>
-            <router-view />
-        </v-main>
+            <v-main>
+                <router-view />
+            </v-main>
 
-        <feedback />
+            <feedback />
+        </v-app>
     </v-app>
 </template>
 
@@ -18,5 +20,15 @@ import Feedback from "./components/feedback/Feedback.vue";
 export default {
     name: "App",
     components: { AppHeader, Feedback },
+    data() {
+        return {
+            drawer: false
+        };
+    },
+    methods: {
+        updateDrawer(newValue) {
+            this.drawer = newValue;
+        }
+    }
 };
 </script>

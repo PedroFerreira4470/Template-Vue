@@ -19,18 +19,21 @@
             </v-card-text>
             <v-divider />
         </v-card>
-        <client-details :client-details="clientDetails" :loading="loadingDetails" />
+        <client-detail :client-details="clientDetails" :loading="loadingDetails" />
+        <client-credit-control :client-details="clientDetails" :loading="loadingDetails" />
     </div>
 </template>
 
 <script>
 import lookupDataService from "../../../../services/lookupDataService";
 import clientDataService from "../../../../services/clientDataService";
-import clientDetails from './ClientDetails.vue'
+import clientCreditControl from './ClientCreditControl.vue';
+import clientDetail from './ClientDetail.vue';
 
 export default {
     components:{
-        clientDetails
+        clientCreditControl,
+        clientDetail
     },
     data() {
         return {
@@ -49,9 +52,12 @@ export default {
                     this.clientDetails = result.data;
                     this.loadingDetails = false;
                     this.$emit("update:clientId", newClient.Id);
+                    this.$emit("update:clientName", newClient.ClientName);
                 }).catch(() => {
                     this.loadingDetails = false;
                     this.clientDetails = null;
+                    this.$emit("update:clientId", null);
+                    this.$emit("update:clientName", null);
                 });
         }
     },
